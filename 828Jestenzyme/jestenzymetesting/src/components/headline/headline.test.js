@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Headline from './index';
-import { findByTestAttribute } from '../../../Utils/index';
+import { findByTestAttribute, checkProps } from '../../../Utils/index';
 
 // Setup should stay in local as some component might require state and others varied
 const setUp = (props = {}) => {
@@ -10,6 +10,27 @@ const setUp = (props = {}) => {
 };
 
 describe('Headline Component', () => {
+  describe('Checking PropTypes', () => {
+    it('should not throw a warning', () => {
+      const expectedProps = {
+        header: 'test',
+        desc: 'test desc',
+        tempArr: [
+          {
+            fName: 'test fname',
+            lName: 'test lname',
+            email: 'test@email.com',
+            age: 20,
+            onlineStatus: false,
+          },
+        ],
+      };
+
+      const propsErr = checkProps(Headline, expectedProps);
+      expect(propsErr).toBeUndefined();
+    });
+  });
+
   // to check for props exist
   describe('Have props', () => {
     let wrapper;
