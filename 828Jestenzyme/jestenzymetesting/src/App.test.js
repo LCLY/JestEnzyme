@@ -37,4 +37,13 @@ describe('App component', () => {
     const component = findByTestAttribute(wrapper, 'appComponent');
     expect(component.length).toBe(1);
   });
+
+  it('hideButtonHandler should update state as expected', () => {
+    // this wont work with functional component, there's no instance for functional component
+    const classInstance = wrapper.instance();
+    console.log(classInstance.debug());
+    classInstance.hideButtonHandler();
+    const newState = classInstance.state.hideBtn;
+    expect(newState).tobe(true);
+  });
 });

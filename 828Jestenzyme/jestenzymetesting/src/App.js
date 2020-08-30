@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './components/header/index';
 import Headline from './components/headline/index';
 import SharedButton from './components/button/index';
@@ -17,13 +17,20 @@ const tempArr = [
 function App(props) {
   const { posts, onFetchPosts } = props;
 
+  const [hideBtn, setHideBtn] = useState(false);
+
   const fetch = () => {
     onFetchPosts();
+    hideButtonHandler();
   };
 
   const configButton = {
     buttonText: 'Get posts',
     emitEvent: fetch,
+  };
+
+  const hideButtonHandler = () => {
+    setHideBtn(!hideBtn);
   };
 
   return (
@@ -35,7 +42,7 @@ function App(props) {
           desc="Click the button to render post"
           tempArr={tempArr}
         />
-        <SharedButton {...configButton} />
+        {!hideBtn && <SharedButton {...configButton} />}
         {posts.length > 0 && (
           <div>
             {posts.map((post, index) => {
